@@ -1,4 +1,9 @@
 # go-shell - a minimal shell in Go
+![Linux](https://img.shields.io/badge/-Linux-grey?logo=linux)
+![macOS](https://img.shields.io/badge/-macOS-black?logo=apple)
+![Windows](https://img.shields.io/badge/-Windows-red)
+![PowerShell](https://img.shields.io/badge/-PowerShell_Core-blue)
+
 <!--
 <div align="left">
 <img style="vertical-align: middle; height: 20px; width: 59px;" src="https://img.shields.io/badge/-Linux-grey?logo=linux" />
