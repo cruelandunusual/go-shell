@@ -1,4 +1,4 @@
-# go-shell - a minimal shell in Go
+# go-shell - a minimal shell written in Go
 ![Linux](https://img.shields.io/badge/-Linux-grey?logo=linux)
 ![macOS](https://img.shields.io/badge/-macOS-black?logo=apple)
 ![Windows](https://img.shields.io/badge/-wsl-red)
