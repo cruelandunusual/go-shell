@@ -14,12 +14,12 @@ var hostName, errHost = os.Hostname()
 var promptHost = hostName
 var promptMsg = "go-shell"
 var promptStub = ": > "
-var promptSpacer = " - "
+var promptSpacer = ": "
 var promptComplete = ""
 
 func buildPrompt() {
-	//promptComplete = promptHost + promptSpacer + promptMsg + promptStub
-	promptComplete = promptMsg + promptStub
+	promptComplete = promptHost + promptSpacer + promptMsg + promptStub
+	//promptComplete = promptMsg + promptStub
 }
 
 func main() {
@@ -33,9 +33,7 @@ func main() {
 		buildPrompt()
 		fmt.Print(promptComplete)
 
-		// Read the keyboard input
-		// a newline stops input reading
-		// and the input variable stores the input since the last newline
+		// Read the keyboard input until newline reached
 		input, err := reader.ReadString('\n')
 
 		// fmt.Fprintln allows us to specify an output device, in this case Stderr
@@ -53,7 +51,6 @@ func main() {
 
 func execInput(input string) error {
 
-	buildPrompt()
 	// strip the newline character from the input string
 	input = strings.TrimSuffix(input, "\n")
 
@@ -63,21 +60,22 @@ func execInput(input string) error {
 
 	// check if args[0] is a shell builtin, e.g. cd
 	switch args[0] {
-	case "cd":
+	case "cd", "chdir", "set-location", "Set-Location", "loc":
 		if len(args) < 2 {
 			return os.Chdir(home)
 		}
+		// TODO: check path validity
 		return os.Chdir(args[1])
 
 	case "setPrompt":
-		return setPromptMessage(args[1:]...)
+		return setPromptMessage(args[1:]...) // variadic argument expansion
 
-	case "exit":
+	case "exit", "quit":
 		os.Exit(0)
 	}
 
 	// prepare the command to execute
-	cmd := exec.Command(args[0], args[1:]...) // neat little syntax for executing all the args, given that we don't know how many will be passed
+	cmd := exec.Command(args[0], args[1:]...)
 
 	// set appropriate outputs
 	cmd.Stderr = os.Stderr
@@ -90,12 +88,12 @@ func execInput(input string) error {
 // Variadic function: takes a variable number of input strings
 func setPromptMessage(input ...string) (err error) {
 	promptString := ""
-	// the underscore below signifies we're ignoring the returned index from range and only using the value at that index (stored in i)
+	// ignore the returned index from range, we only want the value at that index
 	for _, i := range input {
 		promptString += i + " "
 	}
 	if promptString == "" {
-		err = fmt.Errorf("Error: empty prompt string")
+		promptMsg = "go-shell"
 		return
 	}
 	// set the global promptMsg var to the promptString we've built
