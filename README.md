@@ -2,7 +2,6 @@
 ![Linux](https://img.shields.io/badge/-Linux-grey?logo=linux)
 ![macOS](https://img.shields.io/badge/-macOS-black?logo=apple)
 ![Windows](https://img.shields.io/badge/-Windows-red)
-![PowerShell](https://img.shields.io/badge/-PowerShell_Core-blue)
 
 <!--
 <div align="left">
