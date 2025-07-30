@@ -34,10 +34,5 @@ setPrompt my custom prompt message
 > [!TIP]  
 > Builds can be done with Go's own build system, however there is support for [Task](https://taskfile.dev/), a simpler alternative to Make, which allows for more customisable options that Go's build system provides.  
 
-Follow the [instructions to install Task](https://taskfile.dev/installation/);  
-then executing `task build` will create an executable called `go-shell` in `bin/`.  
-
-
-> [!TIP]  
-> `Set-Location ($env:PSModulePath).Split(';')[0]` # cd to the module location on Windows  
-> `Set-Location ($env:PSModulePath).Split(':')[0]` # macOS / Linux version  
+> Follow the [instructions to install Task](https://taskfile.dev/installation/);  
+> then executing `task build` will create an executable called `go-shell` in `bin/`.  
