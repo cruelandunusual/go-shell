@@ -1,7 +1,7 @@
 # go-shell - a minimal shell in Go
 ![Linux](https://img.shields.io/badge/-Linux-grey?logo=linux)
 ![macOS](https://img.shields.io/badge/-macOS-black?logo=apple)
-![wsl](https://img.shields.io/badge/-wsl-red)
+![wsl](https://img.shields.io/badge/-windows-red)
 
 <!--
 <div align="left">
