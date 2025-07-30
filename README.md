@@ -2,7 +2,7 @@
 ![Linux](https://img.shields.io/badge/-Linux-grey?logo=linux)
 ![macOS](https://img.shields.io/badge/-macOS-black?logo=apple)
 ![test](https://img.shields.io/badge/-wsl-red)
-
+<img style="vertical-align: middle; height: 40px; width: 40px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg" />
 <!--
 <div align="left">
 <img style="vertical-align: middle; height: 20px; width: 59px;" src="https://img.shields.io/badge/-Linux-grey?logo=linux" />
