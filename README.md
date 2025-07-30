@@ -11,7 +11,7 @@
 A simple shell interpreter written in Go.  
 
 Initially started by following [this basic tutorial](https://blog.init-io.net/post/2018/07-01-go-unix-shell/) as a way to learn Go.  
-So far it simply executes Linux commands using Go's builtin mechanism for doing that:
+So far it simply executes Linux commands using Go's builtin `Run()` mechanism from the exec package:
 ```go
 	// prepare the command to execute
 	cmd := exec.Command(args[0], args[1:]...) // variadic argument expansion
