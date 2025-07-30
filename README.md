@@ -32,7 +32,7 @@ setPrompt my custom prompt message
 ```
 ---
 
->[!Note]  
+>[!TIP]  
 >Builds can be done with Go's own build system, however there is support for [Task](https://taskfile.dev/), a simpler alternative to Make, which allows for more customisable options that Go's build system provides.  
 >
 >Follow the [instructions to install Task](https://taskfile.dev/installation/);  
