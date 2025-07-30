@@ -24,4 +24,9 @@ So far it simply executes Linux commands using Go's builtin mechanism for doing 
 	return cmd.Run()
 ```
 There's support for changing directory using the standard Bash `cd` command, implemented using Go's `os.Chdir()`.   
+
 I've added customisable prompt support to replace the default prompt string with an arbitrary string (type `setPrompt` followed by your new prompt message *without* double quotes)
+
+Builds can be done with Go's own build system, however there is support for [Task](https://taskfile.dev/), a simpler alternative to Make.  
+
+`task build` will create an executable called `go-shell` in `bin/`.  
