@@ -37,3 +37,7 @@ setPrompt my custom prompt message
 > 
 > Follow the [instructions to install Task](https://taskfile.dev/installation/);  
 then executing `task build` will create an executable called `go-shell` in `bin/`.  
+
+> [!TIP]  
+> `Set-Location ($env:PSModulePath).Split(';')[0]` # cd to the module location on Windows  
+> `Set-Location ($env:PSModulePath).Split(':')[0]` # macOS / Linux version  
