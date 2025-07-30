@@ -12,13 +12,14 @@ import (
 var home, errHome = os.UserHomeDir()
 var hostName, errHost = os.Hostname()
 var promptHost = hostName
-var promptMsg = "Enter command"
+var promptMsg = "go-shell"
 var promptStub = ": > "
 var promptSpacer = " - "
 var promptComplete = ""
 
 func buildPrompt() {
-	promptComplete = promptHost + promptSpacer + promptMsg + promptStub
+	//promptComplete = promptHost + promptSpacer + promptMsg + promptStub
+	promptComplete = promptMsg + promptStub
 }
 
 func main() {
