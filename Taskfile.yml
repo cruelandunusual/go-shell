@@ -13,5 +13,6 @@ tasks:
 
   build:
     cmds:
-      - go run -o bin/main main.go
-
+      - rm bin/*
+      - go build -o bin/go-shell main.go
+      - bin/go-shell
