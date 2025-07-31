@@ -4,13 +4,7 @@
 ![wsl](https://img.shields.io/badge/-wsl-red)
 <br>
 <img style="vertical-align: middle; height: 60px; width: 60px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg" />
-<!--
-<div align="left">
-<img style="vertical-align: middle; height: 20px; width: 59px;" src="https://img.shields.io/badge/-Linux-grey?logo=linux" />
-<img style="vertical-align: middle; height: 20px; width: 59px;" src="https://img.shields.io/badge/-macOS-black?logo=apple" />
-<img style="vertical-align: middle; height: 20px; width: 59px;" src="https://img.shields.io/badge/-Windows-red" /><br><br>
-<img style="vertical-align: middle; height: 40px; width: 40px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg" />
--->
+
 ## Description
 
 A simple shell interpreter written in Go.  
