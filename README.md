@@ -3,7 +3,7 @@
 ![macOS](https://img.shields.io/badge/-macOS-black?logo=apple)
 ![Windows](https://img.shields.io/badge/-wsl-red)
 <br>
-<img style="vertical-align: middle; height: 40px; width: 40px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg" />
+<img style="vertical-align: middle; height: 60px; width: 60px;" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/go/go-original-wordmark.svg" />
 <!--
 <div align="left">
 <img style="vertical-align: middle; height: 20px; width: 59px;" src="https://img.shields.io/badge/-Linux-grey?logo=linux" />
@@ -15,8 +15,8 @@
 
 A simple shell interpreter written in Go.  
 
-Initially started by following [this basic tutorial](https://blog.init-io.net/post/2018/07-01-go-unix-shell/) as a way to learn Go.  
-So far it simply executes Linux commands using Go's builtin `Run()` mechanism from the exec package:
+This project initially started by following [this basic tutorial](https://blog.init-io.net/post/2018/07-01-go-unix-shell/) as a way to learn Go.  
+So far it mainly executes Linux commands using Go's builtin `Run()` mechanism from the `os/exec` package:
 ```go
 	// prepare the command to execute
 	cmd := exec.Command(args[0], args[1:]...) // variadic argument expansion
@@ -28,9 +28,9 @@ So far it simply executes Linux commands using Go's builtin `Run()` mechanism fr
 	// run the command, returning its results and exit status
 	return cmd.Run()
 ```
-There's support for changing directory using the standard Bash `cd` command, as well as analogous commands from other shells, e.g. `Set-Location`, `chdir`, among others.  
+I've enhanced the mechanism for changing directory with the standard Bash `cd` command, so that it now supports analogous commands from other shells, e.g. `Set-Location`, `chdir`, among others.  
 
-I've added customisable prompt support to replace the default prompt string with an arbitrary string;  
+I've added the hostname to the prompt, as well as provided a shell builtin to customise the rest of the prompt string with an arbitrary string;  
 enter `setPrompt` followed by your new prompt message *without* double quotes, e.g.:  
 ```
 setPrompt my custom prompt message
