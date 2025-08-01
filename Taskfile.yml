@@ -7,7 +7,7 @@ vars:
   CREATE_BIN_DIR: No existing bin directory. Making it now...
   BIN_DIR_EXISTS: bin directory exists; proceeding to next step in task.
   DELETE_BINARY: Removing existing binary.
-  BUILD: Building go-shell in bin/ from main.go...
+  BUILD: Building go-shell in bin/ from main.go, execCmd.go, prompt.go...
   EXECUTE: "Executing go-shell"
 
 tasks:
@@ -31,8 +31,9 @@ tasks:
         fi
       - |
         echo "{{.BUILD}}"
-        go build -o bin/go-shell main.go
+        go build -o bin/go-shell main.go execCmd.go prompt.go
       - | 
         echo "{{.EXECUTE}}"
         bin/go-shell
+    env:
     silent: true
