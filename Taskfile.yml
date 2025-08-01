@@ -21,7 +21,13 @@ tasks:
   testbuild:
     cmds:
       - |
-        if [ -f bin/go-shell ]; then
+        if [[ ! -e bin ]]; then
+          echo "No existing bin directory. Making it now."
+          mkdir bin
+        else
+          echo "bin directory exists; proceeding to next step in task."
+        fi
+        if [[ -f bin/go-shell ]]; then
           rm bin/go-shell
         fi
       - go build -o bin/go-shell main.go
