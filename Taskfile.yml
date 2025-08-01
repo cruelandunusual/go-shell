@@ -10,15 +10,8 @@ tasks:
     cmds:
       - echo "{{.GREETING}}"
     silent: true
-
-  build:
-    cmds:
-      - ./myscript.sh
-      - rm bin/*
-      - go build -o bin/go-shell main.go
-      - bin/go-shell
   
-  testbuild:
+  build:
     cmds:
       - |
         if [[ ! -e bin ]]; then
@@ -28,7 +21,13 @@ tasks:
           echo "bin directory exists; proceeding to next step in task."
         fi
         if [[ -f bin/go-shell ]]; then
+          echo "removing existing binary"
           rm bin/go-shell
         fi
-      - go build -o bin/go-shell main.go
-      - bin/go-shell
+      - |
+        echo "building go-shell in bin/ from main.go"
+        go build -o bin/go-shell main.go
+      - | 
+        echo "executing go-shell"
+        bin/go-shell
+    silent: true
