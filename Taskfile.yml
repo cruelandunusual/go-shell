@@ -4,6 +4,11 @@ version: '3'
 
 vars:
   GREETING: Hello, World!
+  CREATE_BIN_DIR: No existing bin directory. Making it now.
+  BIN_DIR_EXISTS: bin directory exists; proceeding to next step in task.
+  DELETE_BINARY: removing existing binary.
+  BUILD: building go-shell in bin/ from main.go
+  EXECUTE: "executing go-shell"
 
 tasks:
   default:
@@ -15,19 +20,19 @@ tasks:
     cmds:
       - |
         if [[ ! -e bin ]]; then
-          echo "No existing bin directory. Making it now."
+          echo "{{.CREATE_BIN_DIR}}"
           mkdir bin
         else
-          echo "bin directory exists; proceeding to next step in task."
+          echo "{{.BIN_DIR_EXISTS}}"
         fi
         if [[ -f bin/go-shell ]]; then
-          echo "removing existing binary"
+          echo "{{.DELETE_BINARY}}"
           rm bin/go-shell
         fi
       - |
-        echo "building go-shell in bin/ from main.go"
+        echo "{{.BUILD}}"
         go build -o bin/go-shell main.go
       - | 
-        echo "executing go-shell"
+        echo "{{.EXECUTE}}"
         bin/go-shell
     silent: true
