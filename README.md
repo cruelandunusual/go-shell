@@ -22,10 +22,9 @@ So far it mainly executes Linux commands using Go's builtin `Run()` mechanism fr
 	// run the command, returning its results and exit status
 	return cmd.Run()
 ```
-I've enhanced the mechanism for changing directory with the standard Bash `cd` command, so that it now supports analogous commands from other shells, e.g. `Set-Location`, `chdir`, among others.  
+I've enhanced the mechanism for changing directory so that as well as the standard Bash `cd` command, it now supports analogous commands from other shells, e.g. `Set-Location`, `chdir`, among others.  
 
-I've added the hostname to the prompt, as well as providing a shell builtin to customise the rest of the prompt string with an arbitrary string;  
-enter `setPrompt` followed by your new prompt message *without* double quotes, e.g.:  
+I've added the hostname to the prompt, as well as providing a shell builtin to customise the rest of the prompt string with an arbitrary string; just enter `setPrompt` followed by your new prompt message *without* double quotes, e.g.:  
 ```
 setPrompt my custom prompt message
 ```
