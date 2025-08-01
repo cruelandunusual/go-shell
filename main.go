@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// set global variable to hold prompt string
 var globalPrompt = ""
 
 func main() {
