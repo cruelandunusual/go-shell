@@ -17,20 +17,17 @@ var promptStub = ": > "
 var promptSpacer = ": "
 var promptComplete = ""
 
-func buildPrompt() {
+func createPrompt() {
 	promptComplete = promptHost + promptSpacer + promptMsg + promptStub
 	//promptComplete = promptMsg + promptStub
 }
 
 func main() {
-
 	// create an instance of bufio.NewReader to capture input
-	// technically the reader variable is a pointer to a bufio.Reader struct
 	reader := bufio.NewReader(os.Stdin)
-	// use an infinite loop to capture input until we Ctrl-C
+	// use an infinite loop to capture input until we Ctrl-C or enter `exit` or `quit`
 	for {
-		// create a prompt
-		buildPrompt()
+		createPrompt()
 		fmt.Print(promptComplete)
 
 		// Read the keyboard input until newline reached
@@ -45,33 +42,20 @@ func main() {
 		if err = execInput(input); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 		}
-
 	}
 }
 
+// Handles standard shell commands (ls, cat, etc).
 func execInput(input string) error {
-
 	// strip the newline character from the input string
 	input = strings.TrimSuffix(input, "\n")
 
-	// create an arry of any arguments passed
-	// args[0] will be the command itself, args[1] will be the first argument, etc
+	// create an array of any arguments passed
 	args := strings.Split(input, " ")
 
-	// check if args[0] is a shell builtin, e.g. cd
-	switch args[0] {
-	case "cd", "chdir", "set-location", "Set-Location", "loc":
-		if len(args) < 2 {
-			return os.Chdir(home)
-		}
-		// TODO: check path validity
-		return os.Chdir(args[1])
-
-	case "setPrompt":
-		return setPromptMessage(args[1:]...) // variadic argument expansion
-
-	case "exit", "quit":
-		os.Exit(0)
+	// check if args[0] is a shell builtin
+	if handled, err := execBuiltin(args); handled {
+		return err
 	}
 
 	// prepare the command to execute
@@ -83,6 +67,22 @@ func execInput(input string) error {
 
 	// run the command, returning its results and exit status
 	return cmd.Run()
+}
+
+// Handles shell builtins. Returns true if a builtin was executed.
+func execBuiltin(args []string) (bool, error) {
+	switch args[0] {
+	case "cd", "chdir", "set-location", "Set-Location", "loc":
+		if len(args) < 2 {
+			return true, os.Chdir(home)
+		}
+		return true, os.Chdir(args[1])
+	case "setPrompt":
+		return true, setPromptMessage(args[1:]...) // variadic argument expansion
+	case "exit", "quit":
+		os.Exit(0)
+	}
+	return false, nil
 }
 
 // Variadic function: takes a variable number of input strings
