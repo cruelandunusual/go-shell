@@ -13,6 +13,16 @@ tasks:
 
   build:
     cmds:
+      - ./myscript.sh
       - rm bin/*
+      - go build -o bin/go-shell main.go
+      - bin/go-shell
+  
+  testbuild:
+    cmds:
+      - |
+        if [ -f bin/go-shell ]; then
+          rm bin/go-shell
+        fi
       - go build -o bin/go-shell main.go
       - bin/go-shell
