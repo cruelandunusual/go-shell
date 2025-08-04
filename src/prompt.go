@@ -9,7 +9,7 @@ import (
 // set a global variable to the user's home directory
 var home, err = os.UserHomeDir()
 
-func createPrompt(message string) (string, error) {
+func createPrompt(message string) string {
 	hostName, err := os.Hostname()
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -24,7 +24,7 @@ func createPrompt(message string) (string, error) {
 	var promptStub = ": > "
 	var promptComplete = ""
 	promptComplete = hostName + promptSpacer + promptMsg + promptStub
-	return promptComplete, nil
+	return promptComplete
 }
 
 // Variadic function: takes a variable number of input strings

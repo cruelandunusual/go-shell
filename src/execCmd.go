@@ -16,10 +16,13 @@ func execInput(input string) error {
 
 	// check if args[0] is a shell builtin
 	if handled, err := execBuiltin(args); handled {
+		// if the builtin has been handled then err is expected to be false.
+		// However, we need to return err to satisfy execInput's own return value
 		return err
 	}
 
-	// prepare the command to execute
+	// If the command entered is not a builtin then we proceed as though it's
+	// a UNIX command, and prepare to pass it to the OS to be handled
 	cmd := exec.Command(args[0], args[1:]...)
 
 	// set appropriate outputs
@@ -39,8 +42,8 @@ func execBuiltin(args []string) (bool, error) {
 		}
 		return true, os.Chdir(args[1])
 	case "setPrompt":
-		globalPrompt, err = createPrompt(setPromptMessage(args[1:]...))
-		return true, err
+		globalPrompt = createPrompt(setPromptMessage(args[1:]...))
+		return true, nil
 	case "exit", "quit":
 		os.Exit(0)
 	}

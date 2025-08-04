@@ -12,10 +12,8 @@ var globalPrompt = ""
 func main() {
 	// create an instance of bufio.NewReader to capture input
 	reader := bufio.NewReader(os.Stdin)
-	globalPrompt, err = createPrompt("")
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-	}
+	globalPrompt = createPrompt("")
+
 	// use an infinite loop to capture input until we Ctrl-C or enter `exit` or `quit`
 	for {
 		//createPrompt()
