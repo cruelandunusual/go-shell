@@ -17,12 +17,14 @@ func createPrompt(message string) string {
 	var promptSpacer = ": "
 	var promptMsg = ""
 	if message == "" {
+		// revert to the default prompt if setPrompt called without arguments
 		promptMsg = getDefaultPrompt()
 	} else {
 		promptMsg = message
 	}
 	var promptStub = ": > "
 	var promptComplete = ""
+	// build the complete prompt from all the components
 	promptComplete = hostName + promptSpacer + promptMsg + promptStub
 	return promptComplete
 }
