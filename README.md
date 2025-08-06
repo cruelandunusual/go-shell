@@ -31,5 +31,7 @@ setPrompt my custom prompt message
 > [!TIP]  
 > Builds can be done with Go's own build system, however there is support for [Task](https://taskfile.dev/), a simpler alternative to Make, which allows for more customisable options than Go's build system provides.  
 > 
-> Follow the [instructions to install Task](https://taskfile.dev/installation/);  
-> then executing `task build` will create an executable called `go-shell` in `bin/`.  
+> Follow the [instructions to install Task](https://taskfile.dev/installation/); then:  
+> * `task` will compile an executable called `go-shell` in `bin/`, and then launch it.
+> * `task build` will simply compile it.  
+
