@@ -68,6 +68,7 @@ tasks:
           {{.DIR_BIN}}/{{.EXEC_NAME}} \
           {{.DIR_SRC}}/{{.SRC_FILE_1}} \
           {{.DIR_SRC}}/{{.SRC_FILE_2}} \
-          {{.DIR_SRC}}/{{.SRC_FILE_3}}
+          {{.DIR_SRC}}/{{.SRC_FILE_3}} \
+          {{.DIR_SRC}}/{{.SRC_FILE_4}}
     env:
     silent: true
