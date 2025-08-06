@@ -16,13 +16,13 @@ func main() {
 
 	// use an infinite loop to capture input until we Ctrl-C or enter `exit` or `quit`
 	for {
-		//createPrompt()
 		fmt.Print(globalPrompt)
 
 		// Read the keyboard input until newline reached
 		input, err := reader.ReadString('\n')
 		if err != nil {
 			// fmt.Fprintln allows us to specify an output device, in this case Stderr
+			// we could also import "log" and use log.Fatal(err)
 			fmt.Fprintln(os.Stderr, err)
 		}
 
