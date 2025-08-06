@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	// "github.com/pd93/ansi"
 )
 
 // set a global variable to the user's home directory
@@ -22,7 +23,8 @@ func createPrompt(message string) string {
 	} else {
 		promptMsg = message
 	}
-	var promptStub = ": > "
+	// promptMsg = ansi.Parse("[blue:bold]" + promptMsg + "[/]") // can't get ansi package working
+	var promptStub = ": \x1b[34m>\x1b[0m "
 	var promptComplete = ""
 	// build the complete prompt from all the components
 	promptComplete = hostName + promptSpacer + promptMsg + promptStub
