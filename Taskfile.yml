@@ -3,13 +3,6 @@
 version: '3'
 
 vars:
-  GREETING: Hello, World!
-  MSG_CREATE_BIN_DIR: No existing bin directory. Making it now...
-  MSG_BIN_DIR_EXISTS: bin directory exists; proceeding to next step in task.
-  MSG_DELETE_BINARY: Removing existing binary.
-  MSG_BUILD: Building go-shell in bin/ from .go files in src/...
-  MSG_EXEC: Executing go-shell...
-
   DIR_BIN: bin
   DIR_SRC: src
   SRC_FILE_1: main.go
@@ -17,15 +10,15 @@ vars:
   SRC_FILE_3: prompt.go
   EXEC_NAME: go-shell
 
+  MSG_CREATE_BIN_DIR: No existing bin directory. Making it now...
+  MSG_BIN_DIR_EXISTS: bin directory exists; proceeding to next step in task.
+  MSG_DELETE_BINARY: Removing existing binary.
+  MSG_BUILD: Building {{.EXEC_NAME}} in bin/ from .go files in src/...
+  MSG_EXEC: Executing {{.EXEC_NAME}}...
+
 tasks:
-  hello:
-    desc: shows message defined in GREETING var
-    cmds:
-      - echo "{{.GREETING}}"
-    silent: true
-  
   default:
-    desc: builds and runs go-shell
+    desc: builds and runs {{.EXEC_NAME}}
     cmds:
       - |
         if [[ ! -e {{.DIR_BIN}} ]]; then
@@ -53,7 +46,7 @@ tasks:
     silent: true
 
   build:
-    desc: builds go-shell
+    desc: builds {{.EXEC_NAME}}
     cmds:
       - |
         if [[ ! -e {{.DIR_BIN}} ]]; then
