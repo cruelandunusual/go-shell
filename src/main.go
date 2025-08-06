@@ -28,17 +28,23 @@ func run(reader bufio.Reader) error {
 
 		// Read the keyboard input until newline reached
 		input, err := reader.ReadString('\n')
-		// add the command to the history list
-		cmdHistory.addHistoryItem(&input)
 		if err != nil {
 			// fmt.Fprintln allows us to specify an output device, in this case Stderr
 			// we could also import "log" and use log.Fatal(err)
 			fmt.Fprintln(os.Stderr, err)
 		}
 
+		// add the command to the history list
+		cmdHistory.addHistoryItem(&input)
+
 		// handle input execution
 		if err = execInput(input); err != nil {
 			fmt.Fprintln(os.Stderr, err)
+			// remove the command from the history list if it returned an error
+			cmdHistory.removeHistoryItem(&input) // TODO: this probably won't need &input passed to it; just remove the current item
 		}
+		// if err = cmdHistory.showAllHistory(); err != nil {
+		// 	fmt.Fprintln(os.Stderr, err)
+		// }
 	}
 }
