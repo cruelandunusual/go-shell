@@ -8,6 +8,8 @@ import (
 
 // set global variable to hold prompt string
 var globalPrompt = ""
+
+// create command history list
 var myHistory = "cmdHistory"
 var cmdHistory = createHistory(myHistory)
 
@@ -26,7 +28,8 @@ func run(reader bufio.Reader) error {
 
 		// Read the keyboard input until newline reached
 		input, err := reader.ReadString('\n')
-		cmdHistory.addHistoryItem(input)
+		// add the command to the history list
+		cmdHistory.addHistoryItem(&input)
 		if err != nil {
 			// fmt.Fprintln allows us to specify an output device, in this case Stderr
 			// we could also import "log" and use log.Fatal(err)

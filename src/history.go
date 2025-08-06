@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 type historyItem struct {
 	command string
 	next    *historyItem
@@ -20,9 +18,9 @@ func createHistory(name string) *history {
 	}
 }
 
-func (h *history) addHistoryItem(command string) error {
+func (h *history) addHistoryItem(command *string) error {
 	c := &historyItem{
-		command: command,
+		command: *command,
 	}
 	if h.head == nil {
 		h.head = c
@@ -36,6 +34,7 @@ func (h *history) addHistoryItem(command string) error {
 	return nil
 }
 
+/*
 func (h *history) showAllHistory() error {
 	currentNode := h.head
 	if currentNode == nil {
@@ -59,3 +58,4 @@ func (h *history) prevItem() *historyItem {
 	h.currentCmd = h.currentCmd.prev
 	return h.currentCmd
 }
+*/
