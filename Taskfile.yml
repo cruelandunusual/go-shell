@@ -8,6 +8,7 @@ vars:
   SRC_FILE_1: main.go
   SRC_FILE_2: execCmd.go
   SRC_FILE_3: prompt.go
+  SRC_FILE_4: history.go
   EXEC_NAME: go-shell
 
   MSG_CREATE_BIN_DIR: No existing bin directory. Making it now...
@@ -38,7 +39,8 @@ tasks:
           {{.DIR_BIN}}/{{.EXEC_NAME}} \
           {{.DIR_SRC}}/{{.SRC_FILE_1}} \
           {{.DIR_SRC}}/{{.SRC_FILE_2}} \
-          {{.DIR_SRC}}/{{.SRC_FILE_3}}
+          {{.DIR_SRC}}/{{.SRC_FILE_3}} \
+          {{.DIR_SRC}}/{{.SRC_FILE_4}}
       - | 
         echo "{{.MSG_EXEC}}"
         bin/{{.EXEC_NAME}}
