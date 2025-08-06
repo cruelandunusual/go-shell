@@ -4,36 +4,75 @@ version: '3'
 
 vars:
   GREETING: Hello, World!
-  CREATE_BIN_DIR: No existing bin directory. Making it now...
-  BIN_DIR_EXISTS: bin directory exists; proceeding to next step in task.
-  DELETE_BINARY: Removing existing binary.
-  BUILD: Building go-shell in bin/ from .go files in src/...
-  EXECUTE: "Executing go-shell"
+  MSG_CREATE_BIN_DIR: No existing bin directory. Making it now...
+  MSG_BIN_DIR_EXISTS: bin directory exists; proceeding to next step in task.
+  MSG_DELETE_BINARY: Removing existing binary.
+  MSG_BUILD: Building go-shell in bin/ from .go files in src/...
+  MSG_EXEC: Executing go-shell...
+
+  DIR_BIN: bin
+  DIR_SRC: src
+  SRC_FILE_1: main.go
+  SRC_FILE_2: execCmd.go
+  SRC_FILE_3: prompt.go
+  EXEC_NAME: go-shell
 
 tasks:
-  default:
+  hello:
+    desc: shows message defined in GREETING var
     cmds:
       - echo "{{.GREETING}}"
     silent: true
   
-  build:
+  default:
+    desc: builds and runs go-shell
     cmds:
       - |
-        if [[ ! -e bin ]]; then
-          echo "{{.CREATE_BIN_DIR}}"
-          mkdir bin
+        if [[ ! -e {{.DIR_BIN}} ]]; then
+          echo "{{.MSG_CREATE_BIN_DIR}}"
+          mkdir {{.DIR_BIN}}
         else
-          echo "{{.BIN_DIR_EXISTS}}"
+          echo "{{.MSG_BIN_DIR_EXISTS}}"
         fi
-        if [[ -f bin/go-shell ]]; then
-          echo "{{.DELETE_BINARY}}"
-          rm bin/go-shell
+        if [[ -f {{.DIR_BIN}}/{{.EXEC_NAME}} ]]; then
+          echo "{{.MSG_DELETE_BINARY}}"
+          rm {{.DIR_BIN}}/{{.EXEC_NAME}}
         fi
       - |
-        echo "{{.BUILD}}"
-        go build -o bin/go-shell src/main.go src/execCmd.go src/prompt.go
+        echo "{{.MSG_BUILD}}"
+        go build \
+          -o \
+          {{.DIR_BIN}}/{{.EXEC_NAME}} \
+          {{.DIR_SRC}}/{{.SRC_FILE_1}} \
+          {{.DIR_SRC}}/{{.SRC_FILE_2}} \
+          {{.DIR_SRC}}/{{.SRC_FILE_3}}
       - | 
-        echo "{{.EXECUTE}}"
-        bin/go-shell
+        echo "{{.MSG_EXEC}}"
+        bin/{{.EXEC_NAME}}
+    env:
+    silent: true
+
+  build:
+    desc: builds go-shell
+    cmds:
+      - |
+        if [[ ! -e {{.DIR_BIN}} ]]; then
+          echo "{{.MSG_CREATE_BIN_DIR}}"
+          mkdir {{.DIR_BIN}}
+        else
+          echo "{{.MSG_BIN_DIR_EXISTS}}"
+        fi
+        if [[ -f {{.DIR_BIN}}/{{.EXEC_NAME}} ]]; then
+          echo "{{.MSG_DELETE_BINARY}}"
+          rm {{.DIR_BIN}}/{{.EXEC_NAME}}
+        fi
+      - |
+        echo "{{.MSG_BUILD}}"
+        go build \
+          -o \
+          {{.DIR_BIN}}/{{.EXEC_NAME}} \
+          {{.DIR_SRC}}/{{.SRC_FILE_1}} \
+          {{.DIR_SRC}}/{{.SRC_FILE_2}} \
+          {{.DIR_SRC}}/{{.SRC_FILE_3}}
     env:
     silent: true
