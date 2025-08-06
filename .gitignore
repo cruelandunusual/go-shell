@@ -29,3 +29,5 @@ x86/
 obj/
 bin/
 
+# misc
+old.Taskfile.yml
