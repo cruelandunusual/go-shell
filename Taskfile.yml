@@ -5,48 +5,13 @@ version: '3'
 vars:
   DIR_BIN: bin
   DIR_SRC: src
-  SRC_FILE_1: main.go
-  SRC_FILE_2: execCmd.go
-  SRC_FILE_3: prompt.go
-  SRC_FILE_4: history.go
   EXEC_NAME: go-shell
 
-  MSG_CREATE_BIN_DIR: No existing bin directory. Making it now...
-  MSG_BIN_DIR_EXISTS: bin directory exists; proceeding to next step in task.
-  MSG_DELETE_BINARY: Removing existing binary.
-  MSG_BUILD: Building {{.EXEC_NAME}} in bin/ from .go files in src/...
-  MSG_EXEC: Executing {{.EXEC_NAME}}...
+  MSG_CREATE_BIN_DIR: No existing {{.DIR_BIN}} directory. Making it now...
+  MSG_DELETE_BINARY: Removing existing binary...
+  MSG_BUILD: Building {{.EXEC_NAME}} in {{.DIR_BIN}}/ from .go files in {{.DIR_SRC}}/...
 
 tasks:
-  default:
-    desc: builds and runs {{.EXEC_NAME}}
-    cmds:
-      - |
-        if [[ ! -e {{.DIR_BIN}} ]]; then
-          echo "{{.MSG_CREATE_BIN_DIR}}"
-          mkdir {{.DIR_BIN}}
-        else
-          echo "{{.MSG_BIN_DIR_EXISTS}}"
-        fi
-        if [[ -f {{.DIR_BIN}}/{{.EXEC_NAME}} ]]; then
-          echo "{{.MSG_DELETE_BINARY}}"
-          rm {{.DIR_BIN}}/{{.EXEC_NAME}}
-        fi
-      - |
-        echo "{{.MSG_BUILD}}"
-        go build \
-          -o \
-          {{.DIR_BIN}}/{{.EXEC_NAME}} \
-          {{.DIR_SRC}}/{{.SRC_FILE_1}} \
-          {{.DIR_SRC}}/{{.SRC_FILE_2}} \
-          {{.DIR_SRC}}/{{.SRC_FILE_3}} \
-          {{.DIR_SRC}}/{{.SRC_FILE_4}}
-      - | 
-        echo "{{.MSG_EXEC}}"
-        bin/{{.EXEC_NAME}}
-    env:
-    silent: true
-
   build:
     desc: builds {{.EXEC_NAME}}
     cmds:
@@ -54,8 +19,6 @@ tasks:
         if [[ ! -e {{.DIR_BIN}} ]]; then
           echo "{{.MSG_CREATE_BIN_DIR}}"
           mkdir {{.DIR_BIN}}
-        else
-          echo "{{.MSG_BIN_DIR_EXISTS}}"
         fi
         if [[ -f {{.DIR_BIN}}/{{.EXEC_NAME}} ]]; then
           echo "{{.MSG_DELETE_BINARY}}"
@@ -66,9 +29,22 @@ tasks:
         go build \
           -o \
           {{.DIR_BIN}}/{{.EXEC_NAME}} \
-          {{.DIR_SRC}}/{{.SRC_FILE_1}} \
-          {{.DIR_SRC}}/{{.SRC_FILE_2}} \
-          {{.DIR_SRC}}/{{.SRC_FILE_3}} \
-          {{.DIR_SRC}}/{{.SRC_FILE_4}}
+          {{.DIR_SRC}}/*.go
     env:
     silent: true
+
+  run:
+    desc: runs {{.EXEC_NAME}}
+    cmds:
+      - |
+        {{.DIR_BIN}}/{{.EXEC_NAME}}
+    silent: true
+
+  default:
+    desc: builds and runs {{.EXEC_NAME}}
+    cmds:
+      - task: build
+      - task: run
+    env:
+    silent: true
+
