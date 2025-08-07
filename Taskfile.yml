@@ -3,37 +3,48 @@
 version: '3'
 
 vars:
-  GREETING: Hello, World!
-  CREATE_BIN_DIR: No existing bin directory. Making it now...
-  BIN_DIR_EXISTS: bin directory exists; proceeding to next step in task.
-  DELETE_BINARY: Removing existing binary.
-  BUILD: Building go-shell in bin/ from .go files in src/...
-  EXECUTE: "Executing go-shell"
+  DIR_BIN: bin
+  DIR_SRC: src
+  EXEC_NAME: go-shell
+
+  MSG_CREATE_BIN_DIR: No existing {{.DIR_BIN}} directory. Making it now...
+  MSG_DELETE_BINARY: Removing existing binary...
+  MSG_BUILD: Building {{.EXEC_NAME}} in {{.DIR_BIN}}/ from .go files in {{.DIR_SRC}}/...
 
 tasks:
-  default:
-    cmds:
-      - echo "{{.GREETING}}"
-    silent: true
-  
   build:
+    desc: builds {{.EXEC_NAME}}
     cmds:
       - |
-        if [[ ! -e bin ]]; then
-          echo "{{.CREATE_BIN_DIR}}"
-          mkdir bin
-        else
-          echo "{{.BIN_DIR_EXISTS}}"
+        if [[ ! -e {{.DIR_BIN}} ]]; then
+          echo "{{.MSG_CREATE_BIN_DIR}}"
+          mkdir {{.DIR_BIN}}
         fi
-        if [[ -f bin/go-shell ]]; then
-          echo "{{.DELETE_BINARY}}"
-          rm bin/go-shell
+        if [[ -f {{.DIR_BIN}}/{{.EXEC_NAME}} ]]; then
+          echo "{{.MSG_DELETE_BINARY}}"
+          rm {{.DIR_BIN}}/{{.EXEC_NAME}}
         fi
       - |
-        echo "{{.BUILD}}"
-        go build -o bin/go-shell src/main.go src/execCmd.go src/prompt.go
-      - | 
-        echo "{{.EXECUTE}}"
-        bin/go-shell
+        echo "{{.MSG_BUILD}}"
+        go build \
+          -o \
+          {{.DIR_BIN}}/{{.EXEC_NAME}} \
+          {{.DIR_SRC}}/*.go
     env:
     silent: true
+
+  run:
+    desc: runs {{.EXEC_NAME}}
+    cmds:
+      - |
+        {{.DIR_BIN}}/{{.EXEC_NAME}}
+    silent: true
+
+  default:
+    desc: builds and runs {{.EXEC_NAME}}
+    cmds:
+      - task: build
+      - task: run
+    env:
+    silent: true
+
