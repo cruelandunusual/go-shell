@@ -34,4 +34,4 @@ setPrompt my custom prompt message
 > Follow the [instructions to install Task](https://taskfile.dev/installation/); then:  
 > * `task` will compile an executable called `go-shell` in `bin/`, and then launch it.
 > * `task build` will simply compile it.  
-
+> * `task run` will run a previously compiled executable.  
