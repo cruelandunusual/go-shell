@@ -4,6 +4,11 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"os/signal"
+	"log"
+	"syscall"
+
+	"golang.org/x/term"
 )
 
 // set global variable to hold prompt string
@@ -26,6 +31,8 @@ func run(reader bufio.Reader) error {
 	for {
 		fmt.Print(globalPrompt)
 
+		// read arrow keys
+		captureInputBytes()
 		// Read the keyboard input until newline reached
 		input, err := reader.ReadString('\n')
 		if err != nil {
@@ -48,3 +55,72 @@ func run(reader bufio.Reader) error {
 		// }
 	}
 }
+
+
+
+/********************************************************************************/
+
+/* chatGPT code below this point */
+
+/********************************************************************************/
+
+
+
+func captureInputBytes() {
+	// Set terminal to raw mode
+	oldState, err := term.MakeRaw(int(os.Stdin.Fd()))
+	if err != nil {
+		fmt.Println("Error setting terminal to raw mode:", err)
+		return
+	}
+	defer term.Restore(int(os.Stdin.Fd()), oldState)
+
+	// Handle interrupt signals to restore terminal state
+	// NOTE this is a goroutine
+	sigChan := make(chan os.Signal, 1)
+	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)
+	go func() {
+		<-sigChan
+		term.Restore(int(os.Stdin.Fd()), oldState)
+		os.Exit(0)
+	}()
+
+	fmt.Println("Press arrow keys (up, down) or 'q' to quit:")
+
+	for {
+		var buf [1]byte
+		_, err := os.Stdin.Read(buf[:])
+		if err != nil {
+			fmt.Println("Error reading input:", err)
+			return
+		}
+
+		// Check for escape sequence
+		if buf[0] == 27 { // Escape character (\e, or \033 in octal)
+			_, err := os.Stdin.Read(buf[:])
+			if err != nil {
+				fmt.Println("Error reading input:", err)
+				return
+			}
+			if buf[0] == 91 { // '[' character
+				_, err := os.Stdin.Read(buf[:])
+				if err != nil {
+					fmt.Println("Error reading input:", err)
+					return
+				}
+				switch buf[0] {
+				case 'A':
+					fmt.Println("Up arrow pressed")
+					// Handle showing the last command here
+				case 'B':
+					fmt.Println("Down arrow pressed")
+					// Handle showing the next command here
+				}
+			}
+		} else if buf[0] == 'q' {
+			break // Exit on 'q'
+		}
+	}
+}
+
+
