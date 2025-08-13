@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/signal"
-	"log"
+	/*"log"*/
 	"syscall"
 
 	"golang.org/x/term"
@@ -32,7 +32,7 @@ func run(reader bufio.Reader) error {
 		fmt.Print(globalPrompt)
 
 		// read arrow keys
-		captureInputBytes()
+		//captureInputBytes()
 		// Read the keyboard input until newline reached
 		input, err := reader.ReadString('\n')
 		if err != nil {
@@ -88,6 +88,7 @@ func captureInputBytes() {
 	fmt.Println("Press arrow keys (up, down) or 'q' to quit:")
 
 	for {
+		// an array of length 1 byte to hold input
 		var buf [1]byte
 		_, err := os.Stdin.Read(buf[:])
 		if err != nil {
