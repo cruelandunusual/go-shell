@@ -23,8 +23,8 @@ func createPrompt(message string) string {
 	} else {
 		promptMsg = message
 	}
-	promptMsg = ansi.Parse("[blue:bold]" + promptMsg + "[/]") // can't get ansi package working
-	var promptStub = ansi.Parse("[green:bold]: > [/]")
+	promptMsg = ansi.Parse("[blue:bold]" + promptMsg + "[/]") 
+	var promptStub = ansi.Parse("[green:bold] :/> [/]")
 	var promptComplete = ""
 	// build the complete prompt from all the components
 	promptComplete = hostName + promptSpacer + promptMsg + promptStub
